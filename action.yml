@@ -1,18 +1,28 @@
 name: "PlayEveryWare Unity Builder"
 description: "Builds a Unity project"
 inputs:
+  token:
+    description: Github access token
+    required: true
   pew-org-token:
     description: PlayEveryWare Organization access token
     required: true
 runs:
   using: "composite"
   steps:
-    - name: Ensure access token provided
-      if: ${{ inputs.pew-org-token == '' }}
+    - name: Ensure access token is provided
+      if: ${{ inputs.token == '' }}
+      shell: powershell
       run: |
-        echo ::error::No PEW_ORG_TOKEN ${{ inputs.pew-org-token }} present in repository secrets
+        echo "::error::No TOKEN (token) passed to build action"
         exit 1
-      shell: cmd
+
+    - name: Ensure organization access token is provided
+      if: ${{ inputs.pew-org-token == '' }}
+      shell: powersheel
+      run: |
+        echo "::error::No Organization token (pew-build-token) passed to build action"
+        exit 1
 
     - name: Get the private actions repository
       uses: actions/checkout@v3
@@ -24,4 +34,5 @@ runs:
 
     - uses: ./unity-build-private
       with:
+        token: ${{ inputs.token }}
         pew-org-token: ${{ inputs.pew-org-token }}
