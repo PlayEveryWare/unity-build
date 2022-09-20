@@ -7,6 +7,17 @@ inputs:
   pew-org-token:
     description: PlayEveryWare Organization access token
     required: true
+  unity-email:
+    required: true
+  unity-password:
+    required: true
+  unity-serial:
+    required: true
+  google-upload-credentials:
+    required: true
+  google-upload-folder-id:
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -36,3 +47,8 @@ runs:
       with:
         token: ${{ inputs.token }}
         pew-org-token: ${{ inputs.pew-org-token }}
+        unity-email: ${{ inputs.unity-email }}
+        unity-password: ${{ inputs.unity-password }}
+        unity-serial: ${{ inputs.unity-serial }}
+        google-upload-credentials: ${{ inputs.google-upload-credentials}}
+        google-upload-folder-id: ${{ inputs.google-upload-folder-id }}
