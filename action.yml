@@ -21,3 +21,7 @@ runs:
         token: ${{ inputs.pew-org-token }}
         path: unity-build-private
         set-safe-directory: false
+
+    - uses: ./unity-build-private
+      with:
+        pew-org-token: ${{ inputs.pew-org-token }}
